@@ -1,1 +1,45 @@
+class Meal:
+    """
+    Shows a meal with a name, course, and list of ingredients.
+    """
 
+    def __init__(self, name, meal_course, ingredients):
+        # name: string, "Chicken Stir Fry"
+        # meal_course: "breakfast", "lunch", or "dinner"
+        # ingredients: list of ingredient strings
+        self.name = name
+        self.meal_course = meal_course
+        self.ingredients = ingredients
+
+    def __str__(self):
+        ingredients_str = ", ".join(self.ingredients)
+        return f"{self.name} ({self.meal_course}) - Ingredients: {ingredients_str}"
+
+class WeeklyPlan:
+    """
+    Stores meals assigned to each day of the week.
+    """
+
+    def __init__(self):
+        self.plan = {
+            "Monday": [],
+            "Tuesday": [],
+            "Wednesday": [],
+            "Thursday": [],
+            "Friday": [],
+            "Saturday": [],
+            "Sunday": []
+        }
+
+    def assign_meal(self, day, meal):
+
+
+class ShoppingList:
+    """
+    Builds a shopping list from all ingredients in the weekly plan.
+    """
+
+class MealPlannerApp:
+"""
+Main class for the meal planner 
+"""
