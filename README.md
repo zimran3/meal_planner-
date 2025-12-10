@@ -31,27 +31,12 @@ Each class has several methods (more than eight total methods per class as requi
 
 # Project structure: 
 Files in the Project:
-meal.py – Meal class
-weekly_plan.py – WeeklyPlan class
-shopping_list.py – ShoppingList class
-app.py – Main program with the menu
-tests/ – pytest files
-README.md – Project explanation
-
-meal_planner/
-│
-├── meal.py
-├── weekly_plan.py
-├── shopping_list.py
-├── app.py
-│
-├── tests/
-│   ├── test_meal.py
-│   ├── test_weekly_plan.py
-│   ├── test_shopping_list.py
-│   └── test_app.py
-│
-└── README.md
+* meal.py – Meal class
+* weekly_plan.py – WeeklyPlan class
+* shopping_list.py – ShoppingList class
+* app.py – Main program with the menu
+* tests/ – pytest files
+* README.md – Project explanation
 
 # Team members:
 Maisha Subin, Zainab Imran, Shuvanga Timilsina, Skye Crane 
