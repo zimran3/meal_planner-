@@ -38,26 +38,102 @@ class ShoppingList:
     """
     Builds a shopping list from all ingredients in the weekly plan.
     """
- def __init__(self):
+
+    def __init__(self):
+        """Initialize an empty shopping list."""
         self.items = []
 
+    # --------------------------------------------------
+    # 1. Add item
+    # --------------------------------------------------
+    def add_item(self, item):
+        """Add a single ingredient to the shopping list."""
+        self.items.append(item)
+
+    # --------------------------------------------------
+    # 2. Remove an item
+    # --------------------------------------------------
+    def remove_item(self, item):
+        """Remove an ingredient if it exists."""
+        if item in self.items:
+            self.items.remove(item)
+            return True
+        return False
+
+    # --------------------------------------------------
+    # 3. Clear the entire list
+    # --------------------------------------------------
+    def clear_list(self):
+        """Remove all items from the list."""
+        self.items.clear()
+
+    # --------------------------------------------------
+    # 4. Get the number of items
+    # --------------------------------------------------
+    def count_items(self):
+        """Return how many items are currently in the shopping list."""
+        return len(self.items)
+
+    # --------------------------------------------------
+    # 5. Check if an item exists
+    # --------------------------------------------------
+    def has_item(self, item):
+        """Return True if an ingredient is already in the list."""
+        return item in self.items
+
+    # --------------------------------------------------
+    # 6. Generate list from a WeeklyPlan
+    # --------------------------------------------------
     def generate_from_plan(self, weekly_plan):
-        self.items = []  # reset
-        for meals in weekly_plan.plan.values():
+        """
+        Populate shopping list with ingredients from all meals
+        in the weekly plan.
+        """
+        self.clear_list()  # start fresh
+        for day, meals in weekly_plan.plan.items():
             for meal in meals:
                 for ingredient in meal.ingredients:
-                    self.items.append(ingredient)
+                    self.add_item(ingredient)
 
-        # Remove duplicates & sort list
-        self.items = sorted(list(set(self.items)))
+    # --------------------------------------------------
+    # 7. Remove duplicates
+    # --------------------------------------------------
+    def remove_duplicates(self):
+        """Remove duplicate ingredients while keeping order."""
+        seen = set()
+        unique_items = []
+        for item in self.items:
+            if item not in seen:
+                unique_items.append(item)
+                seen.add(item)
+        self.items = unique_items
 
+    # --------------------------------------------------
+    # 8. Sort alphabetically
+    # --------------------------------------------------
+    def sort_items(self):
+        """Sort the ingredient list alphabetically."""
+        self.items.sort()
+
+    # --------------------------------------------------
+    # 9. Get the full list (copy)
+    # --------------------------------------------------
+    def get_list(self):
+        """Return a copy of the shopping list."""
+        return list(self.items)
+
+    # --------------------------------------------------
+    # 10. Display list 
+    # --------------------------------------------------
     def display_list(self):
-        print("\n Shopping List:")
+        """Print the shopping list in a readable format."""
         if not self.items:
-            print("Your shopping list is empty.")
+            print("\nShopping list is empty.")
         else:
-            for item in self.items:
-                print(f"- {item}")
+            print("\nShopping List:")
+            for i, item in enumerate(self.items, start=1):
+                print(f"{i}. {item}")
+
 
 class MealPlannerApp:
 """
