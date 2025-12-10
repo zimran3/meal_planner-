@@ -38,6 +38,26 @@ class ShoppingList:
     """
     Builds a shopping list from all ingredients in the weekly plan.
     """
+ def __init__(self):
+        self.items = []
+
+    def generate_from_plan(self, weekly_plan):
+        self.items = []  # reset
+        for meals in weekly_plan.plan.values():
+            for meal in meals:
+                for ingredient in meal.ingredients:
+                    self.items.append(ingredient)
+
+        # Remove duplicates & sort list
+        self.items = sorted(list(set(self.items)))
+
+    def display_list(self):
+        print("\n Shopping List:")
+        if not self.items:
+            print("Your shopping list is empty.")
+        else:
+            for item in self.items:
+                print(f"- {item}")
 
 class MealPlannerApp:
 """
