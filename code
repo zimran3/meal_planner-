@@ -63,6 +63,54 @@ class WeeklyPlan:
         }
 
     def assign_meal(self, day, meal):
+        """Assign a meal to a specific day of the week."""
+        if day in self.plan:
+            self.plan[day].append(meal)
+        else:
+            raise ValueError("Invalid day of the week")
+
+    def remove_meal(self, day, meal):
+        """Remove a meal from a specific day of the week."""
+        if day in self.plan:
+            if meal in self.plan[day]:
+                self.plan[day].remove(meal)
+            else:
+                raise ValueError("Meal not found for the specified day")
+        else:
+            raise ValueError("Invalid day of the week")
+
+    def copy_meal(self, from_day, to_day, meal):
+        """Copy a meal."""
+        if from_day in self.plan and to_day in self.plan:
+            if meal in self.plan[from_day]:
+                self.plan[to_day].append(meal)
+            else:
+                raise ValueError("Meal not found for the specified from_day")
+        else:
+            raise ValueError("Invalid day of the week")
+
+    def clear_day(self, day):
+        """Clear all meals from a specific day of the week."""
+        if day in self.plan:
+            self.plan[day] = []
+        else:
+            raise ValueError("Invalid day of the week")
+
+    def clear_week(self):
+        """Clear all meals from the entire week."""
+        for day in self.plan:
+            self.plan[day] = []
+
+    def get_meals(self, day):
+        """Show the list of meals for a specific day of the week."""
+        if day in self.plan:
+            return self.plan[day]
+        else:
+            raise ValueError("Invalid day of the week")
+
+    def get_week_plan(self):
+        """Show the entire meal plan for the week."""
+        return self.plan
 
 
 class ShoppingList:
