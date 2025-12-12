@@ -15,6 +15,37 @@ class Meal:
         ingredients_str = ", ".join(self.ingredients)
         return f"{self.name} ({self.meal_course}) - Ingredients: {ingredients_str}"
 
+    #  Add ingredient
+    def add_ingredient(self, ingredient):
+        if ingredient not in self.ingredients:
+            self.ingredients.append(ingredient)
+
+    #  Count ingredients
+    def count_ingredients(self):
+        return len(self.ingredients)
+
+    #  Remove ingredient
+    def remove_ingredient(self, ingredient):
+        if ingredient in self.ingredients:
+            self.ingredients.remove(ingredient)
+            return True
+        return False
+
+    #  Change meal name
+    def change_meal_name(self, new_name):
+        self.name = new_name
+
+    #  Change meal course
+    def change_meal_course(self, new_course):
+        if new_course in ["breakfast", "lunch", "dinner"]:
+            self.meal_course = new_course
+            return True
+        return False
+
+    #  Get ingredients list (copy)
+    def get_ingredients_list(self):
+        return list(self.ingredients
+
 class WeeklyPlan:
     """
     Stores meals assigned to each day of the week.
