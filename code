@@ -42,7 +42,7 @@ class Meal:
             return True
         return False
 
-    #  Get ingredients list (copy)
+    #  Get ingredients list 
     def get_ingredients_list(self):
         return list(self.ingredients
 
