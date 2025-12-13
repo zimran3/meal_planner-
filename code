@@ -215,6 +215,71 @@ class ShoppingList:
 
 
 class MealPlannerApp:
+""" Runs the menu and connects meals, weekly plan, and shopping list."""
 """
-Main class for the meal planner 
-"""
+ def __init__(self):
+        """Initializes the MealPlannerApp applications."""
+        self.meals = []
+        self.weekly_plan = WeeklyPlan()
+        self.shopping_list = ShoppingList()
+        
+    def add_meal(self):
+        """Create a new meal and add it to the meal list."""
+        name = input("Meal name: ").strip()
+        course = input("Meal type (breakfast/lunch/dinner/): ").strip().lower()
+        
+        ingredents = []
+        print("Enter ingredients (type 'done' when finished):")
+        while True:
+            item = input("- ").strip()
+            if item.lower() == "done":
+                break
+            if item:
+                ingredents.append(item)
+                
+        meal = Meal(name, course, ingredents)
+        self.meals.append(meal)
+        
+    def view_meals(self):
+        """display all saved meals"""
+        if not self.meals:
+            return
+        for i, meal in enumerate(self.meals, start=1):
+            print(f"{i}.{meal}")
+        
+    def assign_meal_to_day(self):
+        """Assign a meal to a specific day in the week"""
+        if not self.meals:
+            return
+        
+        day = input("Enter day of the week: ").strip().title()
+        self.view_meals()
+        
+        try:
+            choice = int(input("Choose a meal number: "))
+            meal = self .meals[choice - 1]
+            self.weekly_plan.assign_meal(day, meal)
+        except (ValueError, IndexError):
+            pass
+            
+    def view_weekly_plan(self):
+        """Display the full weekly meal plan."""
+        plan = self.weekly_plan.get_week_plan()
+        for day, meals in plan.items():
+            print(day + ":")
+            for meal in meals:
+                print(f" - {meal}")
+        
+    def generate_shopping_list(self):
+        """Generate the shopping list from the weekly meal plan."""
+        self.shopping_list.generate_from_plan(self.weekly_plan)
+        self.shopping_list.remove_duplicates()
+        self.shopping_list.sort_items()
+        
+    def clear_week(self):
+        """Remove all meals from the weekly plan."""
+        self.weekly_plan.clear_plan()
+        
+    def run(self):
+        """Run the Meal Planner application."""
+        pass
