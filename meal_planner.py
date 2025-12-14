@@ -322,15 +322,19 @@ class MealPlannerApp:
         """
         Assign a selected meal to a specific day of the week.
         """
-        day = input("Enter day of the week: ").strip().title()
+        day = input("Enter day of the week: ").strip()
         self.view_meals()
 
         try:
             choice = int(input("Choose a meal number: "))
-            self.weekly_plan.assign_meal(day, self.meals[choice - 1])
-            print("Meal assigned successfully.")
+            success = self.weekly_plan.assign_meal(day, self.meals[choice - 1])
+
+            if success:
+                print("Meal assigned successfully.")
+            else:
+                print("Invalid day. Please enter Monday-Sunday.")
         except (ValueError, IndexError):
-            print("Invalid selection.")
+            print("Invalid selection.") 
 
     def view_weekly_plan(self):
         """
