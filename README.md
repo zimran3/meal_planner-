@@ -51,9 +51,13 @@ All tests should pass successfully.
 
 # Project structure: 
 meal_planner.py        # Main program and class definitions
+
 test_meal_planner.py   # Pytest test cases
+
 requirements.txt       # Project dependencies
+
 README.md              # Project documentation
+
 .gitignore             # Ignored files and folders
 
 # Team members:
