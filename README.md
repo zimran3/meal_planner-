@@ -14,18 +14,22 @@ This project was developed as part of the INST 326 Final Group Project and demon
 
 # Classes We Created
 * Meal
+  
 Represents a single meal and its ingredients.
 This class stores the meal name, course type (breakfast, lunch, or dinner), and a list of ingredients. It provides methods to add, remove, and count ingredients, as well as update meal information.
 
 * WeeklyPlan
+  
 Stores meals assigned to each day of the week.
 This class allows meals to be assigned, removed, counted, and cleared for specific days or the entire week.
 
 * ShoppingList
+  
 Collects ingredients from the weekly meal plan and creates a grocery list.
 This class ensures ingredients are gathered correctly and avoids duplicates.
 
 * MealPlannerApp
+  
 Runs the main menu and connects all the other classes.
 This class provides a console-based interface that allows the user to interact with the program.
 Each class includes eight or more methods, including special methods such as __init__, as required by the project instructions.
