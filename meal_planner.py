@@ -98,118 +98,69 @@ class Meal:
         """
         return list(self.ingredients)
 
-
 # =============================
 # WeeklyPlan Class
 # =============================
+
+
 class WeeklyPlan:
     """
     Manages meals assigned to each day of the week.
-
-    This class stores meals for all seven days and provides methods
-    to assign, remove, and inspect meals for each day.
     """
+
+    VALID_DAYS = [
+        "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday", "Sunday"
+    ]
+
+    def _normalize_day(self, day):
+        day = day.strip().title()
+        return day if day in self.VALID_DAYS else None
 
     def __init__(self):
         """
         Initialize an empty weekly meal plan.
         """
-        self.plan = {
-            "Monday": [],
-            "Tuesday": [],
-            "Wednesday": [],
-            "Thursday": [],
-            "Friday": [],
-            "Saturday": [],
-            "Sunday": []
-        }
+        self.plan = {day: [] for day in self.VALID_DAYS}
 
     def assign_meal(self, day, meal):
-        """
-        Assign a meal to a specific day of the week.
-
-        Args:
-            day (str): The day of the week.
-            meal (Meal): The meal to assign.
-        """
+        day = self._normalize_day(day)
+        if not day:
+            return False
         self.plan[day].append(meal)
+        return True
 
     def remove_meal(self, day, meal):
-        """
-        Remove a meal from a specific day.
-
-        Args:
-            day (str): The day of the week.
-            meal (Meal): The meal to remove.
-
-        Returns:
-            bool: True if the meal was removed, False otherwise.
-        """
-        if meal in self.plan[day]:
-            self.plan[day].remove(meal)
-            return True
-        return False
+        day = self._normalize_day(day)
+        if not day or meal not in self.plan[day]:
+            return False
+        self.plan[day].remove(meal)
+        return True
 
     def get_meals_for_day(self, day):
-        """
-        Retrieve all meals assigned to a given day.
-
-        Args:
-            day (str): The day of the week.
-
-        Returns:
-            list: List of meals for that day.
-        """
-        return self.plan[day]
+        day = self._normalize_day(day)
+        return self.plan[day] if day else []
 
     def count_meals_for_day(self, day):
-        """
-        Count how many meals are assigned to a day.
-
-        Args:
-            day (str): The day of the week.
-
-        Returns:
-            int: Number of meals for the day.
-        """
-        return len(self.plan[day])
+        return len(self.get_meals_for_day(day))
 
     def has_meals(self, day):
-        """
-        Check whether a given day has any meals assigned.
-
-        Args:
-            day (str): The day of the week.
-
-        Returns:
-            bool: True if meals exist, False otherwise.
-        """
-        return len(self.plan[day]) > 0
+        return self.count_meals_for_day(day) > 0
 
     def clear_day(self, day):
-        """
-        Remove all meals from a specific day.
-
-        Args:
-            day (str): The day to clear.
-        """
+        day = self._normalize_day(day)
+        if not day:
+            return False
         self.plan[day] = []
+        return True
 
     def clear_week(self):
-        """
-        Remove all meals from the entire week.
-        """
         for day in self.plan:
             self.plan[day] = []
 
     def get_week_plan(self):
-        """
-        Retrieve the entire weekly plan.
-
-        Returns:
-            dict: Dictionary mapping days to meals.
-        """
         return self.plan
+
 
 
 # =============================
