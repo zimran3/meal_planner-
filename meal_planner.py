@@ -187,7 +187,8 @@ class ShoppingList:
         Args:
             item (str): The ingredient to add.
         """
-        self.items.append(item)
+        if item not in self.items:
+            self.items.append(item)
 
     def remove_item(self, item):
         """
