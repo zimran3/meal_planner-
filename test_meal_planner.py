@@ -1,5 +1,5 @@
 import pytest
-from code import Meal, WeeklyPlan, ShoppingList
+from meal_planner import Meal, WeeklyPlan, ShoppingList
 
 # -----------------------------
 # Meal tests
