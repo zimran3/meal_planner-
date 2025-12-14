@@ -1,5 +1,5 @@
 # Rice.py – Meal Planner App
-INST 326 group project 
+INST 326 group project,  
 Rice.py is a Python-based meal planner designed to help users organize their weekly meals and simplify grocery shopping. The application allows users to create meals with ingredients, assign meals to specific days of the week, view a complete weekly plan, and automatically generate a shopping list based on selected meals.
 
 This project was developed as part of the INST 326 Final Group Project and demonstrates object-oriented programming principles, testing with pytest, and clean software design.
