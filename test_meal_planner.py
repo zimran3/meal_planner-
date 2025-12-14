@@ -38,7 +38,8 @@ def test_change_meal_course_invalid():
 def test_assign_meal_to_day():
     plan = WeeklyPlan()
     meal = Meal("Pizza", "dinner", [])
-    plan.assign_meal("Monday", meal)
+    
+    assert plan.assign_meal("Monday", meal) is True
     assert meal in plan.get_meals_for_day("Monday")
 
 
