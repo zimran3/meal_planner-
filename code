@@ -1,57 +1,119 @@
+# =============================
+# Meal Class
+# =============================
 class Meal:
     """
-    Shows a meal with a name, course, and list of ingredients.
+    Represents a single meal.
+
+    A Meal object stores the name of the meal, the type of course
+    (breakfast, lunch, or dinner), and a list of ingredients.
     """
 
     def __init__(self, name, meal_course, ingredients):
-        # name: string, "Chicken Stir Fry"
-        # meal_course: "breakfast", "lunch", or "dinner"
-        # ingredients: list of ingredient strings
+        """
+        Initialize a Meal object.
+
+        Args:
+            name (str): The name of the meal.
+            meal_course (str): The course type (breakfast, lunch, dinner).
+            ingredients (list): A list of ingredient strings.
+        """
         self.name = name
         self.meal_course = meal_course
         self.ingredients = ingredients
 
     def __str__(self):
-        ingredients_str = ", ".join(self.ingredients)
-        return f"{self.name} ({self.meal_course}) - Ingredients: {ingredients_str}"
+        """
+        Return a human-readable string representation of the meal.
 
-    #  Add ingredient
+        Returns:
+            str: A formatted description of the meal.
+        """
+        return f"{self.name} ({self.meal_course}) - Ingredients: {', '.join(self.ingredients)}"
+
     def add_ingredient(self, ingredient):
+        """
+        Add an ingredient to the meal if it is not already present.
+
+        Args:
+            ingredient (str): The ingredient to add.
+        """
         if ingredient not in self.ingredients:
             self.ingredients.append(ingredient)
 
-    #  Count ingredients
-    def count_ingredients(self):
-        return len(self.ingredients)
-
-    #  Remove ingredient
     def remove_ingredient(self, ingredient):
+        """
+        Remove an ingredient from the meal if it exists.
+
+        Args:
+            ingredient (str): The ingredient to remove.
+
+        Returns:
+            bool: True if removed successfully, False otherwise.
+        """
         if ingredient in self.ingredients:
             self.ingredients.remove(ingredient)
             return True
         return False
 
-    #  Change meal name
+    def count_ingredients(self):
+        """
+        Count the number of ingredients in the meal.
+
+        Returns:
+            int: The number of ingredients.
+        """
+        return len(self.ingredients)
+
     def change_meal_name(self, new_name):
+        """
+        Change the name of the meal.
+
+        Args:
+            new_name (str): The new name for the meal.
+        """
         self.name = new_name
 
-    #  Change meal course
     def change_meal_course(self, new_course):
+        """
+        Change the meal course if it is valid.
+
+        Args:
+            new_course (str): The new course (breakfast, lunch, dinner).
+
+        Returns:
+            bool: True if the course was updated, False otherwise.
+        """
         if new_course in ["breakfast", "lunch", "dinner"]:
             self.meal_course = new_course
             return True
         return False
 
-    #  Get ingredients list 
     def get_ingredients_list(self):
-        return list(self.ingredients
+        """
+        Get a copy of the ingredient list.
 
+        Returns:
+            list: A copy of the ingredients.
+        """
+        return list(self.ingredients)
+
+
+# =============================
+# WeeklyPlan Class
+# =============================
 class WeeklyPlan:
     """
-    Stores meals assigned to each day of the week.
+    Manages meals assigned to each day of the week.
+
+    This class stores meals for all seven days and provides methods
+    to assign, remove, and inspect meals for each day.
     """
 
     def __init__(self):
+        """
+        Initialize an empty weekly meal plan.
+        """
         self.plan = {
             "Monday": [],
             "Tuesday": [],
@@ -63,223 +125,321 @@ class WeeklyPlan:
         }
 
     def assign_meal(self, day, meal):
-        """Assign a meal to a specific day of the week."""
-        if day in self.plan:
-            self.plan[day].append(meal)
-        else:
-            raise ValueError("Invalid day of the week")
+        """
+        Assign a meal to a specific day of the week.
+
+        Args:
+            day (str): The day of the week.
+            meal (Meal): The meal to assign.
+        """
+        self.plan[day].append(meal)
 
     def remove_meal(self, day, meal):
-        """Remove a meal from a specific day of the week."""
-        if day in self.plan:
-            if meal in self.plan[day]:
-                self.plan[day].remove(meal)
-            else:
-                raise ValueError("Meal not found for the specified day")
-        else:
-            raise ValueError("Invalid day of the week")
+        """
+        Remove a meal from a specific day.
 
-    def copy_meal(self, from_day, to_day, meal):
-        """Copy a meal."""
-        if from_day in self.plan and to_day in self.plan:
-            if meal in self.plan[from_day]:
-                self.plan[to_day].append(meal)
-            else:
-                raise ValueError("Meal not found for the specified from_day")
-        else:
-            raise ValueError("Invalid day of the week")
+        Args:
+            day (str): The day of the week.
+            meal (Meal): The meal to remove.
+
+        Returns:
+            bool: True if the meal was removed, False otherwise.
+        """
+        if meal in self.plan[day]:
+            self.plan[day].remove(meal)
+            return True
+        return False
+
+    def get_meals_for_day(self, day):
+        """
+        Retrieve all meals assigned to a given day.
+
+        Args:
+            day (str): The day of the week.
+
+        Returns:
+            list: List of meals for that day.
+        """
+        return self.plan[day]
+
+    def count_meals_for_day(self, day):
+        """
+        Count how many meals are assigned to a day.
+
+        Args:
+            day (str): The day of the week.
+
+        Returns:
+            int: Number of meals for the day.
+        """
+        return len(self.plan[day])
+
+    def has_meals(self, day):
+        """
+        Check whether a given day has any meals assigned.
+
+        Args:
+            day (str): The day of the week.
+
+        Returns:
+            bool: True if meals exist, False otherwise.
+        """
+        return len(self.plan[day]) > 0
 
     def clear_day(self, day):
-        """Clear all meals from a specific day of the week."""
-        if day in self.plan:
-            self.plan[day] = []
-        else:
-            raise ValueError("Invalid day of the week")
+        """
+        Remove all meals from a specific day.
+
+        Args:
+            day (str): The day to clear.
+        """
+        self.plan[day] = []
 
     def clear_week(self):
-        """Clear all meals from the entire week."""
+        """
+        Remove all meals from the entire week.
+        """
         for day in self.plan:
             self.plan[day] = []
 
-    def get_meals(self, day):
-        """Show the list of meals for a specific day of the week."""
-        if day in self.plan:
-            return self.plan[day]
-        else:
-            raise ValueError("Invalid day of the week")
-
     def get_week_plan(self):
-        """Show the entire meal plan for the week."""
+        """
+        Retrieve the entire weekly plan.
+
+        Returns:
+            dict: Dictionary mapping days to meals.
+        """
         return self.plan
 
 
+# =============================
+# ShoppingList Class
+# =============================
 class ShoppingList:
     """
-    Builds a shopping list from all ingredients in the weekly plan.
+    Represents a shopping list generated from meals.
+
+    This class collects ingredients from a weekly meal plan
+    and ensures there are no duplicates.
     """
 
     def __init__(self):
-        """Initialize an empty shopping list."""
+        """
+        Initialize an empty shopping list.
+        """
         self.items = []
 
-    # --------------------------------------------------
-    # 1. Add item
-    # --------------------------------------------------
     def add_item(self, item):
-        """Add a single ingredient to the shopping list."""
+        """
+        Add an item to the shopping list.
+
+        Args:
+            item (str): The ingredient to add.
+        """
         self.items.append(item)
 
-    # --------------------------------------------------
-    # 2. Remove an item
-    # --------------------------------------------------
     def remove_item(self, item):
-        """Remove an ingredient if it exists."""
+        """
+        Remove an item from the shopping list if it exists.
+
+        Args:
+            item (str): The ingredient to remove.
+
+        Returns:
+            bool: True if removed, False otherwise.
+        """
         if item in self.items:
             self.items.remove(item)
             return True
         return False
 
-    # --------------------------------------------------
-    # 3. Clear the entire list
-    # --------------------------------------------------
     def clear_list(self):
-        """Remove all items from the list."""
+        """
+        Remove all items from the shopping list.
+        """
         self.items.clear()
 
-    # --------------------------------------------------
-    # 4. Get the number of items
-    # --------------------------------------------------
     def count_items(self):
-        """Return how many items are currently in the shopping list."""
+        """
+        Count how many items are in the shopping list.
+
+        Returns:
+            int: Number of items.
+        """
         return len(self.items)
 
-    # --------------------------------------------------
-    # 5. Check if an item exists
-    # --------------------------------------------------
     def has_item(self, item):
-        """Return True if an ingredient is already in the list."""
+        """
+        Check if an item exists in the shopping list.
+
+        Args:
+            item (str): The ingredient to check.
+
+        Returns:
+            bool: True if present, False otherwise.
+        """
         return item in self.items
 
-    # --------------------------------------------------
-    # 6. Generate list from a WeeklyPlan
-    # --------------------------------------------------
     def generate_from_plan(self, weekly_plan):
         """
-        Populate shopping list with ingredients from all meals
-        in the weekly plan.
+        Generate the shopping list from a WeeklyPlan object.
+
+        Args:
+            weekly_plan (WeeklyPlan): The weekly meal plan.
         """
-        self.clear_list()  # start fresh
-        for day, meals in weekly_plan.plan.items():
+        self.clear_list()
+        for meals in weekly_plan.get_week_plan().values():
             for meal in meals:
                 for ingredient in meal.ingredients:
-                    self.add_item(ingredient)
+                    if ingredient not in self.items:
+                        self.items.append(ingredient)
 
-    # --------------------------------------------------
-    # 7. Remove duplicates
-    # --------------------------------------------------
-    def remove_duplicates(self):
-        """Remove duplicate ingredients while keeping order."""
-        seen = set()
-        unique_items = []
-        for item in self.items:
-            if item not in seen:
-                unique_items.append(item)
-                seen.add(item)
-        self.items = unique_items
-
-    # --------------------------------------------------
-    # 8. Sort alphabetically
-    # --------------------------------------------------
-    def sort_items(self):
-        """Sort the ingredient list alphabetically."""
-        self.items.sort()
-
-    # --------------------------------------------------
-    # 9. Get the full list (copy)
-    # --------------------------------------------------
     def get_list(self):
-        """Return a copy of the shopping list."""
+        """
+        Retrieve a copy of the shopping list.
+
+        Returns:
+            list: A list of shopping items.
+        """
         return list(self.items)
 
-    # --------------------------------------------------
-    # 10. Display list 
-    # --------------------------------------------------
-    def display_list(self):
-        """Print the shopping list in a readable format."""
-        if not self.items:
-            print("\nShopping list is empty.")
-        else:
-            print("\nShopping List:")
-            for i, item in enumerate(self.items, start=1):
-                print(f"{i}. {item}")
 
-
+# =============================
+# MealPlannerApp Class
+# =============================
 class MealPlannerApp:
-""" Runs the menu and connects meals, weekly plan, and shopping list."""
-"""
- def __init__(self):
-        """Initializes the MealPlannerApp applications."""
+    """
+    Console-based application that connects meals,
+    weekly planning, and shopping list generation.
+    """
+
+    def __init__(self):
+        """
+        Initialize the Meal Planner application.
+        """
         self.meals = []
         self.weekly_plan = WeeklyPlan()
         self.shopping_list = ShoppingList()
-        
+
     def add_meal(self):
-        """Create a new meal and add it to the meal list."""
+        """
+        Create a new meal based on user input and store it.
+        """
         name = input("Meal name: ").strip()
-        course = input("Meal type (breakfast/lunch/dinner/): ").strip().lower()
-        
-        ingredents = []
-        print("Enter ingredients (type 'done' when finished):")
+        course = input("Meal type (breakfast/lunch/dinner): ").strip().lower()
+
+        if course not in ["breakfast", "lunch", "dinner"]:
+            print("Invalid meal type.")
+            return
+
+        ingredients = []
+        print("Enter ingredients (type 'done' to finish):")
         while True:
             item = input("- ").strip()
             if item.lower() == "done":
                 break
             if item:
-                ingredents.append(item)
-                
-        meal = Meal(name, course, ingredents)
-        self.meals.append(meal)
-        
+                ingredients.append(item)
+
+        self.meals.append(Meal(name, course, ingredients))
+        print("Meal added successfully.")
+
     def view_meals(self):
-        """display all saved meals"""
+        """
+        Display all saved meals.
+        """
         if not self.meals:
+            print("No meals saved.")
             return
+
         for i, meal in enumerate(self.meals, start=1):
-            print(f"{i}.{meal}")
-        
+            print(f"{i}. {meal}")
+
+    def remove_meal(self):
+        """
+        Remove a meal from the saved meal list.
+        """
+        self.view_meals()
+        try:
+            choice = int(input("Choose meal number to remove: "))
+            removed = self.meals.pop(choice - 1)
+            print(f"Removed meal: {removed.name}")
+        except (ValueError, IndexError):
+            print("Invalid selection.")
+
     def assign_meal_to_day(self):
-        """Assign a meal to a specific day in the week"""
-        if not self.meals:
-            return
-        
+        """
+        Assign a selected meal to a specific day of the week.
+        """
         day = input("Enter day of the week: ").strip().title()
         self.view_meals()
-        
+
         try:
             choice = int(input("Choose a meal number: "))
-            meal = self .meals[choice - 1]
-            self.weekly_plan.assign_meal(day, meal)
+            self.weekly_plan.assign_meal(day, self.meals[choice - 1])
+            print("Meal assigned successfully.")
         except (ValueError, IndexError):
-            pass
-            
+            print("Invalid selection.")
+
     def view_weekly_plan(self):
-        """Display the full weekly meal plan."""
-        plan = self.weekly_plan.get_week_plan()
-        for day, meals in plan.items():
-            print(day + ":")
+        """
+        Display the full weekly meal plan.
+        """
+        for day, meals in self.weekly_plan.get_week_plan().items():
+            print(f"\n{day}:")
+            if not meals:
+                print("  No meals assigned.")
             for meal in meals:
-                print(f" - {meal}")
-        
+                print(f"  - {meal}")
+
     def generate_shopping_list(self):
-        """Generate the shopping list from the weekly meal plan."""
+        """
+        Generate and display the shopping list from the weekly plan.
+        """
         self.shopping_list.generate_from_plan(self.weekly_plan)
-        self.shopping_list.remove_duplicates()
-        self.shopping_list.sort_items()
-        
-    def clear_week(self):
-        """Remove all meals from the weekly plan."""
-        self.weekly_plan.clear_plan()
-        
+        print("\nShopping List:")
+        for i, item in enumerate(self.shopping_list.get_list(), start=1):
+            print(f"{i}. {item}")
+
     def run(self):
-        """Run the Meal Planner application."""
-        pass
+        """
+        Run the main application menu loop.
+        """
+        while True:
+            print("\n--- Meal Planner ---")
+            print("1. Add meal")
+            print("2. View meals")
+            print("3. Remove meal")
+            print("4. Assign meal to day")
+            print("5. View weekly plan")
+            print("6. Generate shopping list")
+            print("7. Exit")
+
+            choice = input("Choose an option: ")
+
+            if choice == "1":
+                self.add_meal()
+            elif choice == "2":
+                self.view_meals()
+            elif choice == "3":
+                self.remove_meal()
+            elif choice == "4":
+                self.assign_meal_to_day()
+            elif choice == "5":
+                self.view_weekly_plan()
+            elif choice == "6":
+                self.generate_shopping_list()
+            elif choice == "7":
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid option.")
+
+
+# =============================
+# Program Entry Point
+# =============================
+if __name__ == "__main__":
+    app = MealPlannerApp()
+    app.run()
+
