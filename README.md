@@ -1,6 +1,8 @@
 # Rice.py – Meal Planner App
 INST 326 group project 
-Rice.py is a Python-based meal planner designed to help users organize their weekly meals and simplify grocery shopping. The program allows users to add meals with ingredients, assign them to specific days, view a full weekly plan, and automatically generate a shopping list based on selected meals.
+Rice.py is a Python-based meal planner designed to help users organize their weekly meals and simplify grocery shopping. The application allows users to create meals with ingredients, assign meals to specific days of the week, view a complete weekly plan, and automatically generate a shopping list based on selected meals.
+
+This project was developed as part of the INST 326 Final Group Project and demonstrates object-oriented programming principles, testing with pytest, and clean software design.
 
 # What the Program Does
 - Lets the user add meals with a name, meal type, and ingredients
@@ -12,34 +14,49 @@ Rice.py is a Python-based meal planner designed to help users organize their wee
 
 # Classes We Created
 - Meal
-Represents one meal and its ingredients.
+Represents a single meal and its ingredients.
+This class stores the meal name, course type (breakfast, lunch, or dinner), and a list of ingredients. It provides methods to add, remove, and count ingredients, as well as update meal information.
 
 - WeeklyPlan
-Stores meals assigned to each day.
+Stores meals assigned to each day of the week.
+This class allows meals to be assigned, removed, counted, and cleared for specific days or the entire week.
 
 - ShoppingList
-Collects ingredients and creates a grocery list.
+Collects ingredients from the weekly meal plan and creates a grocery list.
+This class ensures ingredients are gathered correctly and avoids duplicates.
 
 - MealPlannerApp
 Runs the main menu and connects all the other classes.
-
-Each class has several methods (more than eight total methods per class as required).
+This class provides a console-based interface that allows the user to interact with the program.
+Each class includes eight or more methods, including special methods such as __init__, as required by the project instructions.
 
 # How to Run the Program:
+1. Clone the repository from GitHub.
+2. Open a terminal in the project directory.
+3. Run the program using:
+   python meal_planner.py
 
 # Testing the Program
+All testing is done using pytest.
+To run the tests:
+1. Install dependencies:
+   pip install -r requirements.txt
+2. Run pytest:
+   pytest
+All tests should pass successfully.
 
 # Project structure: 
-Files in the Project:
-* meal.py – Meal class
-* weekly_plan.py – WeeklyPlan class
-* shopping_list.py – ShoppingList class
-* app.py – Main program with the menu
-* tests/ – pytest files
-* README.md – Project explanation
+meal_planner.py        # Main program and class definitions
+test_meal_planner.py   # Pytest test cases
+requirements.txt       # Project dependencies
+README.md              # Project documentation
+.gitignore             # Ignored files and folders
 
 # Team members:
-Maisha Subin, Zainab Imran, Shuvanga Timilsina, Skye Crane 
+* Maisha Subin
+* Zainab Imran
+* Shuvanga Timilsina
+* Skye Crane 
 
 # Video Presentation
 Our final video explains:
